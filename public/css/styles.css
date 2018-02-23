@@ -154,10 +154,6 @@ button:disabled {
   padding: 10px;
 }
 
-.chat__messages li {
-  margin-bottom: 5px;
-}
-
 .message {
   padding: 10px;
 }
