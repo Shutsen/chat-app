@@ -18,7 +18,7 @@ describe('generateLocationMessage', () => {
     var from = 'Admin';
     var lat = 11;
     var lon = 21;
-    var url = `https://www.google.com/maps?q=${lat},${lon}`;
+    var url = `https://www.google.com/maps?q=${lat},${lon}`; 
     var location = generateLocationMessage(from, lat, lon);
     expect(location.createdAt).toBeA('number');
     expect(location).toInclude({from, url});
