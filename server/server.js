@@ -29,19 +29,24 @@ io.on('connection', (socket) => {
     users.addUser(socket.id, params.name, params.room);
 
     io.to(params.room).emit('updateUserList', users.getUserList(params.room));
-    socket.emit('newMessage', generateMessage('Shutsen', 'Hey! Welcome to my chat app!'));
+    socket.emit('newMessage', generateMessage('Shutsen', 'Hey! Welcome to Shutsen\'s chat app!'));
     socket.broadcast.to(params.room).emit('newMessage', generateMessage('Shutsen', `${params.name} has joined the channel`));
     callback();
   });
 
   socket.on('createMessage', (message, callback) => {
-    console.log('Create new message:', message);
-    io.emit('newMessage', generateMessage(message.from, message.text));
+    var user = users.getUser(socket.id);
+    if (user && isRealString(message.text)) {
+      io.to(user.room).emit('newMessage', generateMessage(user.name, message.text));
+    }
     callback();
   });
 
   socket.on('createLocationMessage', (coords) => {
-    io.emit('newLocationMessage', generateLocationMessage('Admin', coords.latitude, coords.longitude));
+    var user = users.getUser(socket.id);
+    if (user) {
+      io.emit('newLocationMessage', generateLocationMessage(user.name, coords.latitude, coords.longitude));
+    }
   });
 
   socket.on('disconnect', () => {
