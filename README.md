@@ -1,6 +1,6 @@
 # Chat app
 
-> A node.js chat app
+> A node.js project with socket.io to build a real-time chat app
 Fill in a username, join a channel and chat with other people.
 Share your live location if you like.
 
